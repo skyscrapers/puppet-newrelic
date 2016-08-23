@@ -107,7 +107,7 @@ class newrelicnew::agent::php (
     notify  => Service[$newrelic_php_service],
   }
 
-  if ($::lsbdistrelease == '16.04'0 {
+  if ($::lsbdistrelease == '16.04') {
     file { '/lib/systemd/system/newrelic-daemon.service':
       ensure => present,
       source => 'puppet:///modules/newrelicnew/newrelic-daemon.service',

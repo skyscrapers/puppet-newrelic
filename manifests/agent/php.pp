@@ -115,8 +115,15 @@ class newrelicnew::agent::php (
       group  => root,
       mode   => '0644',
       before => Service[$newrelic_php_service],
-      notify => Service[$newrelic_php_service],
+      notify => [Exec['systemd-reload'], Service[$newrelic_php_service]],
+    }
+
+    exec {
+      'systemd-reload':
+        command     => 'systemctl reload',
+        refreshonly => true,
+        path        => '/bin',
+        before      => Service[$newrelic_php_service],
     }
   }
-
 }

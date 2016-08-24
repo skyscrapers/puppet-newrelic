@@ -13,10 +13,14 @@ define newrelicnew::php::newrelic_ini (
     unless   => "grep ${newrelic_license_key} ${name}/newrelic.ini",
   }
 
-  file { "${name}/newrelic.ini":
-    path    => "${name}/newrelic.ini",
+  file { "${name}/20-newrelic.ini":
+    path    => "${name}/20-newrelic.ini",
     content => template('newrelicnew/newrelic.ini.erb'),
     require => Exec["/usr/bin/newrelic-install ${name}"],
+  }
+
+  file { "${name}/newrelic.ini":
+    ensure => absent,
   }
 
 }

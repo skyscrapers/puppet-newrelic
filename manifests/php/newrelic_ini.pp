@@ -10,7 +10,7 @@ define newrelicnew::php::newrelic_ini (
     provider => 'shell',
     user     => 'root',
     group    => 'root',
-    unless   => "grep ${newrelic_license_key} ${name}/newrelic.ini",
+    unless   => "grep ${newrelic_license_key} ${name}/20-newrelic.ini",
   }
 
   file { "${name}/20-newrelic.ini":

@@ -52,7 +52,7 @@ define newrelicnew::server (
   $newrelic_nrsysmond_timeout        = undef,
 ) {
 
-  include newrelic
+  include newrelicnew
 
   $newrelic_package_name = $newrelicnew::params::newrelic_package_name
   $newrelic_service_name = $newrelicnew::params::newrelic_service_name
@@ -86,7 +86,7 @@ define newrelicnew::server (
   file { '/etc/newrelic/nrsysmond.cfg':
     ensure  => present,
     path    => '/etc/newrelic/nrsysmond.cfg',
-    content => template('newrelic/nrsysmond.cfg.erb'),
+    content => template('newrelicnew/nrsysmond.cfg.erb'),
     require => Package[$newrelic_package_name],
     before  => Service[$newrelic_service_name],
     notify  => Service[$newrelic_service_name],

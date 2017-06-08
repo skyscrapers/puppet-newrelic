@@ -63,6 +63,12 @@ class newrelicnew::server::linux (
     require => Class['newrelicnew::params'],
   }
 
+  case $::osfamily {
+    'Debian', 'Ubuntu': {
+      Exec[apt_update] -> Package[$newrelic_package_name]
+    }
+  }
+
   if ! $newrelic_nrsysmond_logfile {
     $logdir = '/var/log/newrelic'
   } else {

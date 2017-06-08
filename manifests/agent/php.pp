@@ -84,6 +84,13 @@ class newrelicnew::agent::php (
     require => Class['newrelicnew::params'],
   }
 
+
+  case $::osfamily {
+    'Debian', 'Ubuntu': {
+      Exec[apt_update] -> Package[$newrelic_php_package]
+    }
+  }
+
   service { $newrelic_php_service:
     ensure     => $newrelic_php_service_ensure,
     enable     => true,

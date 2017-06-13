@@ -7,14 +7,14 @@ node default {
   }
   class { '::apache::mod::php': }
 
-  class {'newrelic::server::linux':
+  class {'newrelicnew::server::linux':
     newrelic_license_key => '',
   }
 
-  class {'newrelic::agent::php':
-    newrelic_license_key   => '',
-    #newrelic_php_conf_dir => ['/etc/php5/apache2/conf.d','/etc/php5/fpm/conf.d'],
-    require                => Class['Apache::mod::php'],
+  class {'newrelicnew::agent::php':
+    newrelic_license_key  => '',
+    newrelic_php_conf_dir => ['/etc/php5/apache2/conf.d','/etc/php5/fpm/conf.d'],
+    require               => Class['Apache::mod::php'],
   }
 
 }

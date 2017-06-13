@@ -34,6 +34,7 @@ class newrelicnew::agent::dotnet (
   $newrelic_daemon_cfgfile_ensure                        = 'present',
   $temp_dir                                              = $::newrelicnew::params::temp_dir ,
   $newrelic_dotnet_source                                = $::newrelicnew::params::newrelic_dotnet_source,
+  $newrelic_dotnet_application_name                      = $::newrelicnew::params::newrelic_dotnet_application_name,
 ) inherits ::newrelicnew {
 
   if ! $newrelic_license_key {
@@ -73,7 +74,12 @@ class newrelicnew::agent::dotnet (
   } ->
   file { "${newrelic_dotnet_conf_dir}\\newrelic.config":
     ensure  => $newrelic_daemon_cfgfile_ensure,
-    content => template('newrelicnew/newrelic.config.erb'),
+    content => template('newrelic/newrelic.config.erb'),
+    notify  => Exec['iisreset'],
   }
 
+  exec { 'iisreset':
+    path        => 'C:/WINDOWS/System32',
+    refreshonly => true
+  }
 }

@@ -14,6 +14,7 @@ class newrelicnew::params {
 
   case $::osfamily {
     'RedHat': {
+      $infra_conf_file        = '/etc/newrelic-infra.yml'
       $newrelic_package_name  = 'newrelic-sysmond'
       $newrelic_service_name  = 'newrelic-sysmond'
       $newrelic_php_package   = 'newrelic-php5'
@@ -26,18 +27,24 @@ class newrelicnew::params {
       }
     }
     'Debian': {
+      $infra_conf_file        = '/etc/newrelic-infra.yml'
       $newrelic_package_name  = 'newrelic-sysmond'
       $newrelic_service_name  = 'newrelic-sysmond'
       $newrelic_php_package   = 'newrelic-php5'
       $newrelic_php_service   = 'newrelic-daemon'
       apt::source { 'newrelic':
-        location    => 'http://apt.newrelic.com/debian/',
-        repos       => 'non-free',
-        key         => 'B60A3EC9',
-        key_source  => 'https://download.newrelic.com/548C16BF.gpg',
-        release     => 'newrelic',
-        include_src => false,
+        location => 'http://apt.newrelic.com/debian/',
+        repos    => 'non-free',
+        key      => {
+          id  => 'B60A3EC9BC013B9C23790EC8B31B29E5548C16BF',
+          key => 'https://download.newrelic.com/548C16BF.gpg',
+        },
+        include  => {
+          src => false,
+        },
+        release  => 'newrelic',
       }
+
       case $::operatingsystem {
         'Debian': {
           case $::operatingsystemrelease {
@@ -65,14 +72,16 @@ class newrelicnew::params {
       }
     }
     'windows': {
-      $bitness                        = regsubst($::architecture,'^x([\d]{2})','\1')
-      $newrelic_package_name          = 'New Relic Server Monitor'
-      $newrelic_service_name          = 'nrsvrmon'
-      $temp_dir                       = 'C:/Windows/temp'
-      $server_monitor_source          = 'http://download.newrelic.com/windows_server_monitor/release/'
-      $newrelic_dotnet_conf_dir       = 'C:\\ProgramData\\New Relic\\.NET Agent'
-      $newrelic_dotnet_package        = "New Relic .NET Agent (${bitness}-bit)"
-      $newrelic_dotnet_source         = 'http://download.newrelic.com/dot_net_agent/release/'
+      $infra_conf_file                  = 'C:/Program Files/New Relic/newrelic-infra/newrelic-infra.yml'
+      $bitness                          = regsubst($::architecture,'^x([\d]{2})','\1')
+      $newrelic_package_name            = 'New Relic Server Monitor'
+      $newrelic_service_name            = 'nrsvrmon'
+      $temp_dir                         = 'C:/Windows/temp'
+      $server_monitor_source            = 'http://download.newrelic.com/windows_server_monitor/release/'
+      $newrelic_dotnet_conf_dir         = 'C:\\ProgramData\\New Relic\\.NET Agent'
+      $newrelic_dotnet_package          = "New Relic .NET Agent (${bitness}-bit)"
+      $newrelic_dotnet_source           = 'http://download.newrelic.com/dot_net_agent/release/'
+      $newrelic_dotnet_application_name = 'My Application'
     }
     default: {
       fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}")

@@ -10,6 +10,9 @@
 # [*newrelic_php_service_ensure*]
 #   Specify the Newrelic PHP service running state. Defaults to 'running'. Possible value is 'stopped'.
 #
+# [*newrelic_php_service_enable*]
+#   Specify the Newrelic PHP service startup state. Defaults to true. Possible value is false.
+#
 # [*newrelic_daemon_cfgfile_ensure*]
 #   Specify the Newrelic daemon cfg file state. Change to absent for agent startup mode. Defaults to 'present'. Possible value is 'absent'.
 #
@@ -34,7 +37,8 @@
 define newrelicnew::php (
   $newrelic_php_package_ensure                           = 'present',
   $newrelic_php_service_ensure                           = 'running',
-  $newrelic_php_conf_dir                                 = $newrelicnew::params::newrelic_php_conf_dir,
+  $newrelic_php_service_enable                           = true,
+  $newrelic_php_conf_dir                                 = $newrelic::params::newrelic_php_conf_dir,
   $newrelic_license_key                                  = undef,
   $newrelic_ini_appname                                  = undef,
   $newrelic_ini_browser_monitoring_auto_instrument       = undef,
@@ -85,8 +89,10 @@ define newrelicnew::php (
 
   include newrelic
 
-  $newrelic_php_package  = $newrelicnew::params::newrelic_php_package
-  $newrelic_php_service  = $newrelicnew::params::newrelic_php_service
+  validate_bool($newrelic_php_service_enable)
+
+  $newrelic_php_package  = $newrelic::params::newrelic_php_package
+  $newrelic_php_service  = $newrelic::params::newrelic_php_service
 
   warning('newrelicnew::php is deprecated. Please switch to the newrelicnew::agent::php class.')
 
@@ -107,7 +113,7 @@ define newrelicnew::php (
 
   service { $newrelic_php_service:
     ensure     => $newrelic_php_service_ensure,
-    enable     => true,
+    enable     => $newrelic_php_service_enable,
     hasrestart => true,
     hasstatus  => true,
   }

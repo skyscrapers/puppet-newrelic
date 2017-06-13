@@ -18,6 +18,6 @@
 #
 class newrelicnew {
 
-  require newrelicnew::params
+  require ::newrelic::params
 
 }

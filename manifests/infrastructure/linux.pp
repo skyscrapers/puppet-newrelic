@@ -9,6 +9,7 @@ class newrelicnew::infrastructure::linux {
         key          => {
           id  => 'A758B3FBCD43BE8D123A3476BB29EE038ECCE87C',
           key => 'https://download.newrelic.com/infrastructure_agent/gpg/newrelic-infra.gpg',
+          server => 'hkp://keyserver.ubuntu.com:80',
         },
         include      => {
           src => false,

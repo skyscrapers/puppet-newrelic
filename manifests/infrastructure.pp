@@ -11,7 +11,7 @@ class newrelicnew::infrastructure (
   $newrelic_license_key = undef,
   $newrelic_infra_conf_file = $newrelicnew::params::infra_conf_file
 ) inherits newrelicnew::params {
-  include ::newrelic
+  include ::newrelicnew
 
   if ! $newrelic_license_key {
     fail('You must specify a valid License Key.')

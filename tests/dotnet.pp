@@ -23,11 +23,11 @@ node default {
   }
   ensure_resource ('windowsfeature', $dotnet_modules)
 
-  class {'newrelic::server::windows':
+  class {'newrelicnew::server::windows':
     newrelic_license_key => '',
   }
 
-  class {'newrelic::agent::dotnet':
+  class {'newrelicnew::agent::dotnet':
     newrelic_license_key => '',
     require              => Windowsfeature[$dotnet_modules],
   }

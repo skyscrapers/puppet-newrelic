@@ -1,4 +1,4 @@
-# == Class: newrelic::infrastructure::windows
+# == Class: newrelicnew::infrastructure::windows
 #
 # [*staging_folder*]
 #  Which folder to download the agent before installation.
@@ -12,7 +12,7 @@
 #  Which proxy to use for downloading the agent
 #  Defaults to undef
 #
-class newrelic::infrastructure::windows (
+class newrelicnew::infrastructure::windows (
   $staging_folder = 'c:/temp',
   $source_url     = 'https://download.newrelic.com/infrastructure_agent/windows/newrelic-infra.msi',
   $download_proxy = undef,

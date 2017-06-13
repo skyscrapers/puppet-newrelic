@@ -37,7 +37,7 @@ class newrelicnew::agent::php (
   $newrelic_php_package_ensure                           = 'present',
   $newrelic_php_service_ensure                           = 'running',
   $newrelic_php_service_enable                           = false,
-  $newrelic_php_conf_dir                                 = $::newrelic::params::newrelic_php_conf_dir,
+  $newrelic_php_conf_dir                                 = $::newrelicnew::params::newrelic_php_conf_dir,
   $newrelic_php_exec_path                                = $::path,
   $newrelic_php_package                                  = $::newrelicnew::params::newrelic_php_package,
   $newrelic_php_service                                  = $::newrelicnew::params::newrelic_php_service,

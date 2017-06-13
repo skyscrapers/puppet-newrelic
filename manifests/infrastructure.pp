@@ -1,4 +1,4 @@
-# == Class: newrelic::infrastructure
+# == Class: newrelicnew::infrastructure
 #
 # [*service_ensure*]
 #   State for the service. Default: running
@@ -6,11 +6,11 @@
 # [*newrelic_license_key*]
 #   License key from new relic. Required.
 #
-class newrelic::infrastructure (
+class newrelicnew::infrastructure (
   $service_ensure = running,
   $newrelic_license_key = undef,
-  $newrelic_infra_conf_file = $newrelic::params::infra_conf_file
-) inherits newrelic::params {
+  $newrelic_infra_conf_file = $newrelicnew::params::infra_conf_file
+) inherits newrelicnew::params {
   include ::newrelic
 
   if ! $newrelic_license_key {
@@ -19,10 +19,10 @@ class newrelic::infrastructure (
 
   case $::kernel {
     'Linux': {
-      contain ::newrelic::infrastructure::linux
+      contain ::newrelicnew::infrastructure::linux
     }
     'Windows': {
-      contain ::newrelic::infrastructure::windows
+      contain ::newrelicnew::infrastructure::windows
     }
     default: {
       warning("Unsupported Kernel ${::kernel}")

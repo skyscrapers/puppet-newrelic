@@ -32,10 +32,10 @@ class newrelicnew::agent::dotnet (
   $newrelic_dotnet_package                               = $::newrelicnew::params::newrelic_dotnet_package,
   $newrelic_license_key                                  = undef,
   $newrelic_daemon_cfgfile_ensure                        = 'present',
-  $temp_dir                                              = $::newrelic::params::temp_dir ,
-  $newrelic_dotnet_source                                = $::newrelic::params::newrelic_dotnet_source,
-  $newrelic_dotnet_application_name                      = $::newrelic::params::newrelic_dotnet_application_name,
-) inherits ::newrelic {
+  $temp_dir                                              = $::newrelicnew::params::temp_dir ,
+  $newrelic_dotnet_source                                = $::newrelicnew::params::newrelic_dotnet_source,
+  $newrelic_dotnet_application_name                      = $::newrelicnew::params::newrelic_dotnet_application_name,
+) inherits ::newrelicnew {
 
   if ! $newrelic_license_key {
     fail('You must specify a valid License Key.')

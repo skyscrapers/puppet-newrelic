@@ -52,7 +52,7 @@ class newrelicnew::server::linux (
   $newrelic_nrsysmond_labels         = undef,
   $newrelic_nrsysmond_timeout        = undef,
   $newrelic_nrsysmond_hostname       = undef,
-) inherits ::newrelic {
+) inherits ::newrelicnew {
 
   if ! $newrelic_license_key {
     fail('You must specify a valid License Key.')

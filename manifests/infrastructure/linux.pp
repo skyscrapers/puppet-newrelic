@@ -1,6 +1,6 @@
-# == Class: newrelic::infrastructure::linux
+# == Class: newrelicnew::infrastructure::linux
 #
-class newrelic::infrastructure::linux {
+class newrelicnew::infrastructure::linux {
   case $::osfamily {
     'Debian': {
       apt::source { 'newrelic-infra':

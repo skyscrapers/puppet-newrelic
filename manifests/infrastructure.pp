@@ -7,9 +7,11 @@
 #   License key from new relic. Required.
 #
 class newrelicnew::infrastructure (
-  $service_ensure = running,
-  $newrelic_license_key = undef,
-  $newrelic_infra_conf_file = $newrelicnew::params::infra_conf_file
+  $service_ensure           = running,
+  $newrelic_license_key     = undef,
+  $newrelic_infra_conf_file = $newrelicnew::params::infra_conf_file,
+  $display_name             = undef,
+  $custom_attributes        = {},
 ) inherits newrelicnew::params {
   include ::newrelicnew
 
@@ -31,18 +33,12 @@ class newrelicnew::infrastructure (
 
   file { $newrelic_infra_conf_file:
     ensure  => file,
+    content => template('newrelicnew/etc/newrelic-infra.yml.erb'),
     require => Package['newrelic-infra'],
-  }->
+    notify  => Service['newrelic-infra'],
+  }
 
-  file_line {'Add License key for config YML':
-    ensure  => present,
-    path    => $newrelic_infra_conf_file,
-    line    => "license_key: ${newrelic_license_key}",
-    match   => '^license_key:',
-    require => Package['newrelic-infra'],
-  }->
-
-  service{'newrelic-infra':
+  service {'newrelic-infra':
     ensure  => $service_ensure,
     require => Package['newrelic-infra'],
   }

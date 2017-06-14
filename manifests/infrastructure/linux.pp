@@ -19,7 +19,8 @@ class newrelicnew::infrastructure::linux {
       }->
 
       package { 'newrelic-infra':
-        ensure => installed,
+        ensure  => installed,
+        require => Exec['apt_update']
       }
     }
     'RedHat': {

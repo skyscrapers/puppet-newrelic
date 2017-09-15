@@ -1,6 +1,5 @@
 # This module should not be used directly. It is used by newrelicnew::php.
 define newrelicnew::php::newrelic_ini (
-  $newrelic_license_key,
   $exec_path,
   $newrelic_php_package_ensure                           = $::newrelicnew::agent::php::newrelic_php_package_ensure,
   $newrelic_php_service_ensure                           = $::newrelicnew::agent::php::newrelic_php_service_ensure,
